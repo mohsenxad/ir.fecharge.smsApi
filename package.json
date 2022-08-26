@@ -1,0 +1,23 @@
+{
+  "name": "ir.fecharge.smsApi",
+  "version": "1.0.0",
+  "description": "this is a sms api that create payment from sms that received.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohsenxad/ir.fecharge.smsApi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohsenxad/ir.fecharge.smsApi/issues"
+  },
+  "homepage": "https://github.com/mohsenxad/ir.fecharge.smsApi#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
