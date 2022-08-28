@@ -1,7 +1,8 @@
 var Kavenegar = require('kavenegar');
+require('dotenv').config();
 
-const API_KEY = '3845615061524B41362B4D474C543156433471556D6D476D6B4F756A5A374A4E';
-const KAVEHNEGAR_SENDER = '10000808800000';
+const API_KEY = process.env.KAVEH_NEGAR_TOKEN;
+const KAVEHNEGAR_SENDER = process.env.KAVEH_NEGAR_SMS_NUMBER;
 var kavehnegarApi = Kavenegar.KavenegarApi({
     apikey: API_KEY
 });
