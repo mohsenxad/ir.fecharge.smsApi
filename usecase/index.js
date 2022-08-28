@@ -21,7 +21,6 @@ let sendPaymentUrl = makeSendPaymentUrl(sendSms, KAVEHNEGAR_SENDER);
 let sendOrderHelp = makeSendOrderHelp(sendSms, KAVEHNEGAR_SENDER);
 let processTextMessage = makeProcessTextMessage(mobileNumberHelper, serviceHelper, getPaymentUrl, sendPaymentUrl, sendOrderHelp);
 
-
 let useCaseService = Object.freeze({
     processTextMessage,
 })
