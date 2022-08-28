@@ -1,4 +1,4 @@
-module.exports  =   function makeProcessTextMessage(mobileNumberHelper, serviceHelper, extractOrder, getPaymentUrl, sendPaymentUrl, sendOrderHelp){
+module.exports  =   function makeProcessTextMessage(mobileNumberHelper, serviceHelper, getPaymentUrl, sendPaymentUrl, sendOrderHelp){
     return function processTextMessage(sender, textMessage){
         let mobileNumber = mobileNumberHelper.extractMobileNumber(textMessage);
         let serviceId = serviceHelper.extractServiceId(textMessage);

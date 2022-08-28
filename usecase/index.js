@@ -8,7 +8,6 @@ var kavehnegarApi = Kavenegar.KavenegarApi({
 
 const makeOrder = require('../model/order.mdl');
 
-const makeExtractOrder = require('./extractOrder/src/extractOrder');
 const makeOrderService = require('./orderService/src/orderService');
 const makeProcessTextMessage = require('./processTextMessage/src/processTextMessage');
 const makeGetPaymentUrl = require('./getPaymentUrl/src/makeGetPaymentUrl');
@@ -19,12 +18,11 @@ const  mobileNumberHelper  = require('../helper/mobileNumber');
 const  serviceHelper  = require('../helper/service');
 
 let order = makeOrder();
-let extractOrder = makeExtractOrder(order);
 let orderService = makeOrderService();
 let getPaymentUrl = makeGetPaymentUrl();
 let sendPaymentUrl = makeSendPaymentUrl(kavehnegarApi, KAVEHNEGAR_SENDER);
 let sendOrderHelp = makeSendOrderHelp(kavehnegarApi, KAVEHNEGAR_SENDER);
-let processTextMessage = makeProcessTextMessage(mobileNumberHelper, serviceHelper, extractOrder, getPaymentUrl, sendPaymentUrl, sendOrderHelp);
+let processTextMessage = makeProcessTextMessage(mobileNumberHelper, serviceHelper, getPaymentUrl, sendPaymentUrl, sendOrderHelp);
 
 
 let useCaseService = Object.freeze({
