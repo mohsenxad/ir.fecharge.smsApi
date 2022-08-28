@@ -1,27 +1,31 @@
+import { Router } from 'itty-router'
 const { processTextMessage } = require('./usecase');
 
+const router = Router()
 
-
-const PORT = 3001;
-const PACKAGE_NAME = 'ir.fechagre.smsAPI';
-
-var express = require('express');
-var bodyParser = require('body-parser')
-var app = express();
-app.use(bodyParser.json());
-
-app.get('/', (req, res)=> {
-	res.send(`Hello from ${PACKAGE_NAME}`);
-});
-
-app.post('/webhook', (req, res) => {
-	console.log(req.body);
-	let message = req.body.message;
-	let sender = req.body.sender;
-	processTextMessage(sender, message);
-	res.send();
+router.get("/", () => {
+  return new Response("Hello!")
 })
 
-app.listen(PORT, ()=>{
-	console.log(`${PACKAGE_NAME} start on ${PORT}`);
+router.post("/webhook", async request => {
+
+    let body = await request.json();
+    
+    let message = body.message;
+ 	  let sender = body.sender;
+   	await processTextMessage(sender, message);
+    var result = {'done': true};
+    let returnData = JSON.stringify(result, null, 2);
+    return new Response(returnData, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+  })
+  
+
+router.all("*", () => new Response("404, not found!", { status: 404 }))
+
+addEventListener('fetch', (e) => {
+    e.respondWith(router.handle(e.request))
 })

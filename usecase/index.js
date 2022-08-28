@@ -1,11 +1,5 @@
-var Kavenegar = require('kavenegar');
-require('dotenv').config();
-
-const API_KEY = process.env.KAVEH_NEGAR_TOKEN;
-const KAVEHNEGAR_SENDER = process.env.KAVEH_NEGAR_SMS_NUMBER;
-var kavehnegarApi = Kavenegar.KavenegarApi({
-    apikey: API_KEY
-});
+const KAVEH_NEGAR_TOKEN = KAVEH_NEGAR_TOKEN_VALUE;
+const KAVEHNEGAR_SENDER = KAVEH_NEGAR_SMS_NUMBER_VALUE;
 
 const makeOrder = require('../model/order.mdl');
 
@@ -14,6 +8,7 @@ const makeProcessTextMessage = require('./processTextMessage/src/processTextMess
 const makeGetPaymentUrl = require('./getPaymentUrl/src/makeGetPaymentUrl');
 const makeSendPaymentUrl = require('./sendPaymentUrl/src/makeSendPaymentUrl');
 const makeSendOrderHelp = require('./sendOrderHelp/src/makeSendOrderHelp');
+const makeSendSms = require('./sendSms/src/makeSendSms');
 
 const  mobileNumberHelper  = require('../helper/mobileNumber');
 const  serviceHelper  = require('../helper/service');
@@ -21,8 +16,9 @@ const  serviceHelper  = require('../helper/service');
 let order = makeOrder();
 let orderService = makeOrderService();
 let getPaymentUrl = makeGetPaymentUrl();
-let sendPaymentUrl = makeSendPaymentUrl(kavehnegarApi, KAVEHNEGAR_SENDER);
-let sendOrderHelp = makeSendOrderHelp(kavehnegarApi, KAVEHNEGAR_SENDER);
+let sendSms = makeSendSms(KAVEH_NEGAR_TOKEN);
+let sendPaymentUrl = makeSendPaymentUrl(sendSms, KAVEHNEGAR_SENDER);
+let sendOrderHelp = makeSendOrderHelp(sendSms, KAVEHNEGAR_SENDER);
 let processTextMessage = makeProcessTextMessage(mobileNumberHelper, serviceHelper, getPaymentUrl, sendPaymentUrl, sendOrderHelp);
 
 

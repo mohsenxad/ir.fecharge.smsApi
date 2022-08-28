@@ -1,5 +1,5 @@
 module.exports  =   function makeProcessTextMessage(mobileNumberHelper, serviceHelper, getPaymentUrl, sendPaymentUrl, sendOrderHelp){
-    return function processTextMessage(sender, textMessage){
+    return async function processTextMessage(sender, textMessage){
         let mobileNumber = mobileNumberHelper.extractMobileNumber(textMessage);
         let serviceId = serviceHelper.extractServiceId(textMessage);
 
@@ -11,14 +11,11 @@ module.exports  =   function makeProcessTextMessage(mobileNumberHelper, serviceH
             isValidServiceId
         ){
             let paymentUrl = getPaymentUrl(mobileNumber, serviceId);
-            let sendPaymentUrlResponse = sendPaymentUrl(sender, paymentUrl);
+            let sendPaymentUrlResponse = await sendPaymentUrl(sender, paymentUrl);
         }else{
-            let sendHelpReposen = sendOrderHelp(order.getSender());
+            let sendHelpReposen = await sendOrderHelp(order.getSender());
         }
 
-        
-        
-        
         
         
     }

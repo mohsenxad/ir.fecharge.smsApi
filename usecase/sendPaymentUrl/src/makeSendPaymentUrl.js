@@ -1,15 +1,7 @@
-
-
-module.exports = function makeSendPaymentUrl(kavehnegarApi, KAVEHNEGAR_SENDER){
-    return function sendPaymentUrl(receptor, paymentUrl){
-        kavehnegarApi.Send({
-            message: `برای فعال سازی سرویس مد نظرتون از لینک زیر اقدام کنید\n ${paymentUrl}`,
-            sender: KAVEHNEGAR_SENDER,
-            receptor: receptor
-        },
-        function(response, status) {
-            console.log(response);
-            console.log(status);
-        });
+module.exports = function makeSendPaymentUrl(sendSms, KAVEHNEGAR_SENDER){
+    return async function sendPaymentUrl(receptor, paymentUrl){
+        let message = `برای فعال سازی سرویس مد نظرتون از لینک زیر اقدام کنید\n ${paymentUrl}`; 
+        const sendSmsResponse = await sendSms(KAVEHNEGAR_SENDER, receptor, message);
+        return sendSmsResponse;
     }
 }
