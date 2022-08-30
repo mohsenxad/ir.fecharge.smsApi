@@ -9,11 +9,22 @@ router.get("/", () => {
 
 router.post("/webhook", async request => {
 
-    let body = await request.json();
+	if(request.method != 'POST'){
+		return new Response("Method Not Allowed", {
+			status: 405
+		  })
+	}
+    //let body = await request.json();
+    let body = await request.formData();
+
+	const {
+		message,
+		from,
+	} = Object.fromEntries(body)
+
+    console.log(`new sms from : ${from} wiht message : ${message}`);
     
-    let message = body.message;
- 	  let sender = body.sender;
-   	await processTextMessage(sender, message);
+   	await processTextMessage(from, message);
     var result = {'done': true};
     let returnData = JSON.stringify(result, null, 2);
     return new Response(returnData, {
